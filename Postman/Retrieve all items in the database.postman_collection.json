@@ -8,9 +8,69 @@
 	"item": [
 		{
 			"name": "GET all items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body as JSON\r",
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"\r",
+							"// Validate status code\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Ensure the response is an array\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(jsonData).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"// Check that each object in the array contains the correct fields\r",
+							"jsonData.forEach((item, index) => {\r",
+							"    pm.test(`Item ${index + 1}: has required fields`, function () {\r",
+							"        pm.expect(item).to.have.property(\"_id\").that.is.a(\"string\");\r",
+							"        pm.expect(item).to.have.property(\"name\").that.is.a(\"string\");\r",
+							"        pm.expect(item).to.have.property(\"password\").that.is.a(\"string\");\r",
+							"        pm.expect(item).to.have.property(\"__v\").that.is.a(\"number\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Validate specific constraints if needed\r",
+							"pm.test(\"Passwords are not empty\", function () {\r",
+							"    jsonData.forEach(item => {\r",
+							"        pm.expect(item.password).to.not.be.empty;\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"// Check if there are at least 1 user in the response\r",
+							"pm.test(\"Response contains at least 1 user objects\", function () {\r",
+							"    pm.expect(jsonData.length).to.be.at.least(1);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "https://account-manager-app-express-mong-production.up.railway.app/api/users",
+					"protocol": "https",
+					"host": [
+						"account-manager-app-express-mong-production",
+						"up",
+						"railway",
+						"app"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
 			},
 			"response": []
 		}
