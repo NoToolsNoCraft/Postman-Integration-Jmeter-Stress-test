@@ -1,0 +1,29 @@
+name: Postman Functional/Integration + Jmeter Stress Performance test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  api-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set Up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Run Postman Test
+      run: newman run "Postman/Retrieve all items in the database.postman_collection.json"
+
+    - name: Install JMeter
+      run: sudo apt-get install jmeter
+
+    - name: Run JMeter Tests
+      run: jmeter -n -t JMeter/API_Stress_Testing.jmx -l results.jtl
