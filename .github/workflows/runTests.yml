@@ -29,7 +29,7 @@ jobs:
       run: |
         wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.tgz
         tar xf apache-jmeter-5.5.tgz
-        export PATH=$PATH:$PWD/apache-jmeter-5.5/bin
+        echo "$PWD/apache-jmeter-5.5/bin" >> $GITHUB_PATH
 
     - name: Configure JMeter XStream Security
       run: |
