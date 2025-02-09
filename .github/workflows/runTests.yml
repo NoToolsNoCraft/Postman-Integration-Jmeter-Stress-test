@@ -23,10 +23,12 @@ jobs:
       run: newman run "Postman/Retrieve all items in the database.postman_collection.json"
 
     - name: Install JMeter
-      run: sudo apt-get install jmeter
+      run: |
+        sudo apt-get install jmeter
+        echo "xstream.security.allowAll=org.apache.jmeter.save.ScriptWrapper" >> $HOME/.jmeter.properties
 
     - name: List Jmeter Directory
       run: ls -R Jmeter
     
     - name: Run JMeter Tests
-      run: jmeter -n -t Jmeter/API_Stress_Testing.jmx -l results.jtl -Jxstream.aliases=org.apache.jmeter.save.ScriptWrapper -Dxstream.security.allowAll=true
+      run: jmeter -n -t Jmeter/API_Stress_Testing.jmx -l results.jtl
