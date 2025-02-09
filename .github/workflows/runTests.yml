@@ -25,8 +25,8 @@ jobs:
     - name: Install JMeter
       run: sudo apt-get install jmeter
 
-    - name: List JMeter Directory
-      run: ls -R JMeter
+    - name: List Jmeter Directory
+      run: ls -R Jmeter
     
     - name: Run JMeter Tests
-      run: jmeter -n -t JMeter/API_Stress_Testing.jmx -l results.jtl
+      run: jmeter -n -t Jmeter/API_Stress_Testing.jmx -l results.jtl
