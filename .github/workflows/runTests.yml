@@ -22,13 +22,21 @@ jobs:
     - name: Run Postman Test
       run: newman run "Postman/Retrieve all items in the database.postman_collection.json"
 
-    - name: Install JMeter
-      run: |
-        sudo apt-get install jmeter
-        echo "xstream.security.allowAll=org.apache.jmeter.save.ScriptWrapper" >> $HOME/.jmeter.properties
+    - name: Install OpenJDK 8
+      run: sudo apt-get install openjdk-8-jdk
 
-    - name: List Jmeter Directory
-      run: ls -R Jmeter
-    
+    - name: Download and Install JMeter 5.5
+      run: |
+        wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.tgz
+        tar xf apache-jmeter-5.5.tgz
+        export PATH=$PATH:$PWD/apache-jmeter-5.5/bin
+
+    - name: Configure JMeter XStream Security
+      run: |
+        echo "xstream.security.allowAll=org.apache.jmeter.save.ScriptWrapper" >> $PWD/apache-jmeter-5.5/bin/jmeter.properties
+
+    - name: List JMeter Directory
+      run: ls -R apache-jmeter-5.5
+
     - name: Run JMeter Tests
       run: jmeter -n -t Jmeter/API_Stress_Testing.jmx -l results.jtl
