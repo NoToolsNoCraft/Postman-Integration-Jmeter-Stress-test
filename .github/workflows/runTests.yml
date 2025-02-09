@@ -29,6 +29,4 @@ jobs:
       run: ls -R Jmeter
     
     - name: Run JMeter Tests
-      run: jmeter -n -t Jmeter/API_Stress_Testing.jmx -l results.jtl -Jxstream.aliases=org.apache.jmeter.save.ScriptWrapper -Dorg.apache.xbean.finder.classpath.SAXParserFactory=org.apache.xerces.jaxp.SAXParserFactoryImpl
-
-
+      run: jmeter -n -t Jmeter/API_Stress_Testing.jmx -l results.jtl -Jxstream.aliases=org.apache.jmeter.save.ScriptWrapper -Dxstream.security.allowAll=true
