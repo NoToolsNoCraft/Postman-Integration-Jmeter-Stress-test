@@ -1,0 +1,18 @@
+{
+	"info": {
+		"_postman_id": "5e0ad93c-38cf-4a3b-987f-f1b94dd01ea4",
+		"name": "Retrieve all items in the database",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35095642"
+	},
+	"item": [
+		{
+			"name": "GET all items",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
